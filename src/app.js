@@ -1,14 +1,22 @@
 //1.导包
 const express = require('express');
 const path = require('path')
-var bodyParser = require('body-parser')//解析post请求的包
+const bodyParser = require('body-parser')//解析post请求的包
+
+const session = require('express-session') //引入操作session的包  req.session来调用session
+
+
 
 
 //2.创建app服务
 const app = express();
-//这里是完成bodyparser的设置 让body解析json和普通键值对格式的post请求体
+//bodyparser的设置 让body解析json和普通键值对格式的post请求体
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+//express-session的设置maxAge是设置session过期时间
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 600000 }}))
+
 
 
 
