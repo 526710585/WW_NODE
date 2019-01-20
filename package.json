@@ -1,0 +1,24 @@
+{
+  "name": "WW_NODE",
+  "version": "1.0.0",
+  "description": "这是一个学习的node项目",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/526710585/WW_NODE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/526710585/WW_NODE/issues"
+  },
+  "homepage": "https://github.com/526710585/WW_NODE#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
