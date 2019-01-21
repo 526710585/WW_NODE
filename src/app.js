@@ -15,7 +15,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //express-session的设置maxAge是设置session过期时间
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 600000 }}))
+app.use(session({  resave: false, //添加 resave 选项
+    saveUninitialized: true,//添加这行
+    secret: 'keyboard cat', cookie: { maxAge: 600000 }}))
 
 
 
@@ -32,6 +34,9 @@ const accountRouter = require(path.join(__dirname,'./routers/accountRouters'))
 app.use('/account/',accountRouter) //这里给req和res注入了很多方法
 
 
+//4.2挂载student路由对象
+const studentRouter = require(path.join(__dirname,'routers/studentRouters.js'))
+app.use('/student/',studentRouter)
 
 
 app.listen(3000,err=>{

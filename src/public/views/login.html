@@ -68,7 +68,7 @@ function login (){
     $.post('/account/login',{username,password,vcode},res=>{
         console.log(res)
         if(res.status==0){//成功登录
-            location.href = '/ccccc/ccccc'
+            location.href = '/student/index'
         }else{
             alert(res.msg)
             location.reload()
