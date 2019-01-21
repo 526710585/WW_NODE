@@ -10,12 +10,15 @@ const mongodbTools = require(path.join(__dirname, "../tools/mangodbTools")); //�
 const getIndexPage = (req,res)=>{
     const keyWords=req.query.keyWords||"";//有就用传过来的,没有就用空字符串,也就是搜索所有的数据
     //3.3链接数据库
-    mongodbTools.mangodb("findMany",'studentInfo',{name:{$regex:keyWords}},(err,docs)=>{
-        
+    mongodbTools.findMany('studentInfo',{name:{$regex:keyWords}},(err,docs)=>{
         const html = template(path.join(__dirname,"../public/views/index.html"), {data:docs,keyWords});
         res.send(html)
-        
     })
+
+    // mongodbTools.mangodb("findMany",'studentInfo',{name:{$regex:keyWords}},(err,docs)=>{ 
+    //     const html = template(path.join(__dirname,"../public/views/index.html"), {data:docs,keyWords});
+    //     res.send(html)
+    // })
 
 }
 

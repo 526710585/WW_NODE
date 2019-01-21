@@ -33,12 +33,13 @@ const register = (req, res) => {
     //3.2获取请求的username和password
     const {username} = req.body
     //3.3调用工具去查询数据
-    mongodbTools.mangodb("findOne","userInfo", {username}, (err, doc) => {
+    mongodbTools.findOne("userInfo", {username}, (err, doc) => {
         if (doc) { //有这个账号
             result.status = 1;
             result.message = "此账号已存在~"
             res.json(result)
         } else { //没这个账号
+            // mongodbTools.insertOne()
             collection.insertOne(req.body, (err, result2) => { //插入账号
                 if (result2) { //插入成功
                     res.json(result)
@@ -99,7 +100,7 @@ const login = (req, res) => {
     };
     //验证码正确 开始操作数据库
     //6.3链接数据库
-    mongodbTools.mangodb("findOne","userInfo",{username,password},(err,doc)=>{
+    mongodbTools.findOne("userInfo",{username,password},(err,doc)=>{
         if (doc) { //有账号
             //返回响应体
             res.json(resObj);
@@ -110,6 +111,17 @@ const login = (req, res) => {
             res.json(resObj);
         }
     })
+    // mongodbTools.mangodb("findOne","userInfo",{username,password},(err,doc)=>{
+    //     if (doc) { //有账号
+    //         //返回响应体
+    //         res.json(resObj);
+    //     } else {
+    //         resObj.status = 2;
+    //         resObj.msg = "账号或者密码输入错误~"
+    //         //返回响应体
+    //         res.json(resObj);
+    //     }
+    // })
 }
 
 //吧输出对象设定好
