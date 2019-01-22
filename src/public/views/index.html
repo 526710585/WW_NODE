@@ -23,7 +23,7 @@
                 <span class="input-group-addon" id="basic-addon1">学生姓名</span>
                 <input type="text" class="form-control" id="studentNameId" placeholder="请输入学生姓名进行查询" aria-describedby="basic-addon1" style="width:200px;margin-right:10px;" value="{{keyWords}}">
                 <input type="button" class="btn btn-success" onclick="search()" value="查找" style="margin-right:10px;">
-                <input type="button" class="btn btn-success" value="新增" onclick="window.location='/studentmanager/add'">
+                <input type="button" class="btn btn-success" value="新增" onclick="window.location='/student/add'">
             </div>
         </div>
         <div class="panel-body">
@@ -45,9 +45,10 @@
                         <td>{{$value.sex}}</td>
                         <td>{{$value.phone}}</td>
                         <td>
-                            <a href="#" class="btn btn-success">编辑</a> |
+                            <!-- mongodb使用的是_id -->
+                            <a href="/student/edit/{{$value._id+''}}" class="btn btn-success">编辑</a> |
     
-                            <input type="button" onclick="" class="btn btn-danger" value="删除">
+                            <input type="button" onclick="deleteOne({{$value._id}})" class="btn btn-danger" value="删除">
                         </td>
                     </tr>
                     {{/each}}
@@ -60,6 +61,12 @@
     //点击搜索按钮跳转href发送get请求带过去keyWords
         function search (){
             location.href = "/student/index/?keyWords="+$('#studentNameId').val();
+        }
+        //删除的函数
+        function deleteOne (id){
+           if(confirm('确认删除吗?')){
+            location.href = "/student/delete/"+id;
+           }
         }
     </script>
 {{/block}}

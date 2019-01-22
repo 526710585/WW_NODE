@@ -23,7 +23,8 @@ accountRouter.get('/getYzImg',accountContorller.getYzImg);
 //8.登录的post请求 
 accountRouter.post('/login',accountContorller.login)
 
-
+//9.退出登录的logout get请求  logout
+accountRouter.get('/logout',accountContorller.logout);
 
 
 //5.导出路由对象

@@ -91,6 +91,7 @@ const login = (req, res) => {
         msg: "登录成功~"
     }
     const {username,password,vcode} = req.body; //解构post传过来的用户名,密码,验证码
+    console.log(username,password,vcode)
     const rand = req.session.rand; //获取存在session的随机数字
     if (rand != vcode) { //如果验证码不对
         resObj.status = 1;
@@ -102,6 +103,7 @@ const login = (req, res) => {
     //6.3链接数据库
     mongodbTools.findOne("userInfo",{username,password},(err,doc)=>{
         if (doc) { //有账号
+            req.session.loginName = username;//把登录的用户名存储到session中
             //返回响应体
             res.json(resObj);
         } else {
@@ -124,11 +126,18 @@ const login = (req, res) => {
     // })
 }
 
+
+//7.这是退出登录的get请求
+    const logout=(req,res)=>{
+        req.session.loginName = null;
+        res.send("<script>location.href='/account/login'</script>")
+    }
 //吧输出对象设定好
 module.exports = {
     getRegisterPage,
     register,
     getLoginPage,
     getYzImg,
-    login
+    login,
+    logout
 }

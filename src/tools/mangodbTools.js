@@ -1,6 +1,8 @@
 
 
 //-------------------------------------------
+const ObjectId = require('mongodb').ObjectId;
+
 
 //1.连接数据库
 //创建了mongodb 的客户端对象
@@ -58,6 +60,24 @@ function findMany (collectionName,data,callback){
     })
 }
 
+function updateOne (collectionName,data,newdata,callback){
+    createCollection(collectionName,(collection,client)=>{
+        collection.updateOne(data,{$set:newdata},(err,result)=>{
+            client.close();
+            callback(err,result);
+            })
+    })
+}
+
+
+function deleteOne (collectionName,data,callback){
+    createCollection(collectionName,(collection,client)=>{
+        collection.deleteOne(data,(err,result)=>{
+            client.close();
+            callback(err,result);
+          })
+    })
+}
 
 
 
@@ -101,7 +121,10 @@ module.exports = {
     insertOne,
     findOne,
     findMany,
-    mangodb
+    mangodb,
+    ObjectId,
+    updateOne,
+    deleteOne
 }
 
 
